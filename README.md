@@ -62,7 +62,54 @@ root@elastic:/home/vagrant# yc compute image list
 +----+------+--------+-------------+--------+
 ```
 
-- 
+- Работает. Ок. Теперь установим Packer и проверим, увидит ли он его в системе. Сказано, что не ниже 1.7. Так и сделаем. В процессе уточняем архитектуру процессора, ну и включаем впн :)
+
+```
+root@elastic:/home/vagrant# dpkg --print-architecture
+amd64
+root@elastic:/home/vagrant# cd packer/
+root@elastic:/home/vagrant/packer# wget https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
+--2023-11-24 10:43:41--  https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
+Resolving releases.hashicorp.com (releases.hashicorp.com)... 18.66.112.100, 18.66.112.96, 18.66.112.117, ...
+Connecting to releases.hashicorp.com (releases.hashicorp.com)|18.66.112.100|:443... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2023-11-24 10:43:41 ERROR 404: Not Found.
+
+root@elastic:/home/vagrant/packer# https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
+bash: https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip: No such file or directory
+root@elastic:/home/vagrant/packer# wget https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
+--2023-11-24 10:44:09--  https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
+Resolving releases.hashicorp.com (releases.hashicorp.com)... 108.139.47.78
+Connecting to releases.hashicorp.com (releases.hashicorp.com)|108.139.47.78|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 31769615 (30M) [application/zip]
+Saving to: ‘packer_1.7.5_linux_amd64.zip’
+
+packer_1.7.5_linux_amd64.zip                                100%[========================================================================================================================================>]  30.30M  5.08MB/s    in 6.4s
+
+2023-11-24 10:44:18 (4.73 MB/s) - ‘packer_1.7.5_linux_amd64.zip’ saved [31769615/31769615]
+root@elastic:/home/vagrant/packer# unzip packer_1.7.5_linux_amd64.zip -d packer_1.7
+Archive:  packer_1.7.5_linux_amd64.zip
+  inflating: packer_1.7/packer
+root@elastic:/home/vagrant/packer# ls -la
+total 31040
+drwxr-xr-x  3 root    root        4096 Nov 24 10:47 .
+drwxr-xr-x 11 vagrant vagrant     4096 Nov 24 10:05 ..
+drwxr-xr-x  2 root    root        4096 Nov 24 10:47 packer_1.7
+-rw-r--r--  1 root    root    31769615 May  9  2022 packer_1.7.5_linux_amd64.zip
+root@elastic:/home/vagrant/packer# mv packer_1.7/packer /usr/bin
+root@elastic:/home/vagrant/packer# packer version
+Packer v1.7.5
+
+Your version of Packer is out of date! The latest version
+is 1.9.4. You can update by downloading from www.packer.io/downloads
+root@elastic:/home/vagrant/packer#
+```
+
+
+
+
+
 
 
 ## Задача 2
