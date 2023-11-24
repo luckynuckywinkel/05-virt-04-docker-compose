@@ -167,6 +167,7 @@ root@elastic:/home/vagrant/packer# yc compute image list
     }
   ]
 }
+```
 
 ---
 
