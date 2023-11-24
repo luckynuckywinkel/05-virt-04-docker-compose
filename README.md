@@ -37,7 +37,7 @@ bash: yc: command not found
 root@elastic:/home/vagrant# cp /root/yandex-cloud/bin/yc /usr/bin
 root@elastic:/home/vagrant# yc init
 Welcome! This command will take you through the configuration process.
-Please go to https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7bec2fb in order to obtain OAuth token.
+Please go to https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7***** in order to obtain OAuth token.
 
 Please enter OAuth token: =-my OATH token=-
 You have one cloud available: 'winkelcloud' (id = b1g4oas************). It is going to be used by default.
@@ -105,6 +105,70 @@ Your version of Packer is out of date! The latest version
 is 1.9.4. You can update by downloading from www.packer.io/downloads
 root@elastic:/home/vagrant/packer#
 ```
+
+- Сбилдим наш имэдж из *.json-файла и проверим, загрузился ли он:
+
+```
+root@elastic:/home/vagrant/packer# nano debian-12-base.json
+root@elastic:/home/vagrant/packer# packer validate debian-12-base.json
+root@elastic:/home/vagrant/packer# packer build debian-12-base.json
+yandex: output will be in this color.
+
+==> yandex: Creating temporary ssh key for instance...
+==> yandex: Using as source image: fd8tir33idvbn40d00nm (name: "ubuntu-20-04-lts-v20231120", family: "ubuntu-2004-lts")
+==> yandex: Use provided subnet id e9bp3us5qvt8sagmjc1s
+==> yandex: Creating disk...
+==> yandex: Creating instance...
+==> yandex: Waiting for instance with id fhmrs9klg1kndjj7nk65 to become active...
+    yandex: Detected instance IP: 62.84.127.114
+==> yandex: Using SSH communicator to connect: 62.84.127.114
+==> yandex: Waiting for SSH to become available...
+==> yandex: Connected to SSH!
+==> yandex: Stopping instance...
+==> yandex: Deleting instance...
+    yandex: Instance has been deleted!
+==> yandex: Creating image: my-ubuntu
+==> yandex: Waiting for image to complete...
+==> yandex: Success image create...
+==> yandex: Destroying boot disk...
+    yandex: Disk has been deleted!
+Build 'yandex' finished after 2 minutes 36 seconds.
+
+==> Wait completed after 2 minutes 36 seconds
+
+==> Builds finished. The artifacts of successful builds are:
+--> yandex: A disk image was created: my-ubuntu (id: fd8ii33qfgeuh1obsrju) with family name ubuntu-2004-lts
+root@elastic:/home/vagrant/packer# yc compute image list
++----------------------+-----------+-----------------+----------------------+--------+
+|          ID          |   NAME    |     FAMILY      |     PRODUCT IDS      | STATUS |
++----------------------+-----------+-----------------+----------------------+--------+
+| fd8ii33qfgeuh1obsrju | my-ubuntu | ubuntu-2004-lts | f2e0e7i7283vjc1bt3i1 | READY  |
++----------------------+-----------+-----------------+----------------------+--------+
+```
+
+- Собственно, json-файл:
+
+```
+{
+  "builders": [
+    {
+      "disk_type": "network-nvme",
+      "folder_id": "b1g533merodvcsj****",
+      "image_description": "by packer",
+      "image_family": "ubuntu-2004-lts",
+      "image_name": "my-ubuntu",
+      "source_image_family": "ubuntu-2004-lts",
+      "ssh_username": "ubuntu",
+      "subnet_id": "e9bp3us5qvt8sag******",
+      "token": "y0_*****************************",
+      "type": "yandex",
+      "use_ipv4_nat": true,
+      "zone": "ru-central1-a"
+    }
+  ]
+}
+
+---
 
 
 
