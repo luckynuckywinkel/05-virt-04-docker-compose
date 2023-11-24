@@ -169,7 +169,9 @@ root@elastic:/home/vagrant/packer# yc compute image list
 }
 ```
 
-![yc](img/1.JPG)
+![yc](img/1.JPG)  
+
+  
 
 ---
 
