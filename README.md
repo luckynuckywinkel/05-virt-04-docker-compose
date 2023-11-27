@@ -195,7 +195,7 @@ root@elastic:/home/vagrant/packer# yc compute image list
 
 - Т.к. в рамках моего курса я, безусловно, создавал виртуальные машины с помощью web-интерфейса несколько раз, думаю, будет не зазорно упустить этот пункт.
 
-- Давайте создадим машину, используя ваш terraform-код. Я подправил некоторые моменты, но, в целом, код остался в практически не измененном виде. Я добавлю его в папку **tf** - взгляните.
+- Давайте создадим машину, используя ваш terraform-код. Я подправил некоторые моменты, но, в целом, код остался в практически не измененном виде. 
 
 - Не думаю, что есть смысл городить сюда всю простыню вывода **terraform apply**, полагаю, что вот это самое важное:
 
@@ -208,7 +208,17 @@ root@elastic:/home/vagrant/packer# yc compute image list
 С помощью Ansible и Docker Compose разверните на виртуальной машине из предыдущего задания систему мониторинга на основе Prometheus/Grafana.
 Используйте Ansible-код в директории ([src/ansible](https://github.com/netology-group/virt-homeworks/tree/virt-11/05-virt-04-docker-compose/src/ansible)).
 
-Чтобы получить зачёт, вам нужно предоставить вывод команды "docker ps" , все контейнеры, описанные в [docker-compose](https://github.com/netology-group/virt-homeworks/blob/virt-11/05-virt-04-docker-compose/src/ansible/stack/docker-compose.yaml),  должны быть в статусе "Up".
+Чтобы получить зачёт, вам нужно предоставить вывод команды "docker ps" , все контейнеры, описанные в [docker-compose](https://github.com/netology-group/virt-homeworks/blob/virt-11/05-virt-04-docker-compose/src/ansible/stack/docker-compose.yaml),  должны быть в статусе "Up".  
+
+### Решение:  
+
+- Запустим наш плэйбук **provision.yml**:
+
+![as](img/4.JPG)  
+
+- Отлично, все зазеленело. Подключимся к нашему облачному серверу и посмотрим, что там:
+
+![docker](img/6.JPG)
 
 ## Задача 4
 
@@ -220,9 +230,13 @@ root@elastic:/home/vagrant/packer# yc compute image list
 Чтобы получить зачёт, предоставьте: 
 
 - скриншот работающего веб-интерфейса Grafana с текущими метриками, как на примере ниже.
-<p align="center">
-  <img width="1200" height="600" src="./assets/yc_02.png">
-</p>
+
+### Решение:  
+
+- Собственно, вывод графиков дашборда:
+
+![grafana](img/6.JPG)
+
 
 ## Задача 5 (*)
 
