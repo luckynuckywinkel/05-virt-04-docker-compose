@@ -235,7 +235,7 @@ root@elastic:/home/vagrant/packer# yc compute image list
 
 - Собственно, вывод графиков дашборда:
 
-![grafana](img/6.JPG)
+![grafana](img/5.JPG)
 
 
 ## Задача 5 (*)
